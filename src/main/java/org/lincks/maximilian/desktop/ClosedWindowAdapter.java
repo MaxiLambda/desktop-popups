@@ -1,5 +1,7 @@
 package org.lincks.maximilian.desktop;
 
+import org.lincks.maximilian.desktop.core.notification.NotificationManager;
+
 import java.awt.event.WindowAdapter;
 import java.time.Duration;
 import java.util.Random;
@@ -18,6 +20,7 @@ public class ClosedWindowAdapter extends WindowAdapter {
         this.min = min;
         this.max = max;
     }
+
     @Override
     public void windowClosed(java.awt.event.WindowEvent windowEvent) {
         manager.clearPanel();
@@ -26,7 +29,7 @@ public class ClosedWindowAdapter extends WindowAdapter {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        manager.addNotification(Messages.random());
+        manager.addRandomNotification();
     }
 
 
