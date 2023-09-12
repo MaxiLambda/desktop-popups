@@ -5,7 +5,6 @@ import org.lincks.maximilian.desktop.core.notification.provider.NotificationProv
 import org.lincks.maximilian.desktop.core.notification.provider.ProviderManager;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 

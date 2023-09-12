@@ -14,6 +14,8 @@ public class App {
         //setup
         System.out.println("Starting application...");
         FlatDarculaLaf.setup();
-        new NotificationManager(List.of(new ImagesProvider(), new MessageProvider()));
+        new NotificationManager(List.of(
+                new ImagesProvider(),
+                new MessageProvider()));
     }
 }

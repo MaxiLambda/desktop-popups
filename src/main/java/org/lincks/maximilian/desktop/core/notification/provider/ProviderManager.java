@@ -23,7 +23,6 @@ public class ProviderManager {
     }
 
     public Notification randomNotification() {
-        //TODO check if weights are adequately respected
         int value = random.nextInt(totalWeight);
         return providers
                 .keySet()
