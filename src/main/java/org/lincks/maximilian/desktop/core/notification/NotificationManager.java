@@ -14,11 +14,14 @@ public class NotificationManager {
     private final JPanel panel = new JPanel();
     private final ProviderManager providerManager;
 
+    private final Duration minDuration = Duration.ofSeconds(3);
+    private final Duration maxDuration = Duration.ofSeconds(5);
+
     public NotificationManager(List<NotificationProvider> providers) throws InterruptedException {
         providerManager = new ProviderManager(providers);
 
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        frame.addWindowListener(new ClosedWindowAdapter(this, Duration.ofSeconds(3), Duration.ofSeconds(5)));
+        frame.addWindowListener(new ClosedWindowAdapter(this, minDuration, maxDuration));
         frame.add(panel);
 
         System.out.println("Starting loop...");

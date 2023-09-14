@@ -8,7 +8,5 @@ public interface Notification {
     JPanel create();
 
     BiConsumer<JFrame, JPanel> setUp();
-
-
 }
 

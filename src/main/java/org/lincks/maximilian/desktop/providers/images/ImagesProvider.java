@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Random;
 
 public class ImagesProvider implements NotificationProvider {
-    List<String> imagesUrls;
+    private final List<String> imagesUrls;
     private final Random random = new Random();
 
-    public ImagesProvider() {
-        File imagesDir = new File("src/main/resources/images");
+    public ImagesProvider(String path) {
+        File imagesDir = new File(path);
         if (!imagesDir.exists() || !imagesDir.isDirectory())
             throw new IllegalStateException("Images directory does not exist");
 
@@ -24,8 +24,11 @@ public class ImagesProvider implements NotificationProvider {
 
     @Override
     public Notification random() {
-        String imageUrl = imagesUrls.get(random.nextInt(imagesUrls.size()));
-        return new ImageNotification(imageUrl);
+        return new ImageNotification(randomImageUrl());
+    }
+
+    public String randomImageUrl() {
+        return imagesUrls.get(random.nextInt(imagesUrls.size()));
     }
 
     @Override

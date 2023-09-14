@@ -15,17 +15,30 @@ public class MessageProvider implements NotificationProvider {
 
     private final Random random = new Random();
 
-    public MessageProvider() throws IOException {
-        messageTexts = Files.readAllLines(Path.of("src/main/resources/messages.txt"));
+    public MessageProvider(List<String> paths) {
+        messageTexts = paths.stream()
+                .map(Path::of)
+                .map(path -> {
+                    try {
+                        return Files.readAllLines(path);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .flatMap(List::stream)
+                .toList();
     }
 
     public Notification random() {
-        String message = messageTexts.get(random.nextInt(messageTexts.size()));
-        return new MessageNotification(message);
+        return new MessageNotification(randomMessageString());
+    }
+
+    public String randomMessageString(){
+        return messageTexts.get(random.nextInt(messageTexts.size()));
     }
 
     @Override
     public int weight() {
-        return messageTexts.size();
+        return messageTexts.size() * 3 / 2;
     }
 }

@@ -38,6 +38,6 @@ build/
 .DS_Store
 /.idea/
 
-src/main/resources/messages.txt
+src/main/resources/messages/
 src/main/resources/images/
 .idea
