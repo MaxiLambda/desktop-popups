@@ -14,8 +14,8 @@ public class NotificationManager {
     private final JPanel panel = new JPanel();
     private final ProviderManager providerManager;
 
-    private final Duration minDuration = Duration.ofSeconds(3);
-    private final Duration maxDuration = Duration.ofSeconds(5);
+    private final Duration minDuration = Duration.ofMinutes(30);
+    private final Duration maxDuration = Duration.ofMinutes(90);
 
     public NotificationManager(List<NotificationProvider> providers) throws InterruptedException {
         providerManager = new ProviderManager(providers);
@@ -25,7 +25,7 @@ public class NotificationManager {
         frame.add(panel);
 
         System.out.println("Starting loop...");
-        Thread.sleep(Duration.ofSeconds(0).toMillis());
+        Thread.sleep(Duration.ofMinutes(15).toMillis());
 
         addRandomNotification();
     }
