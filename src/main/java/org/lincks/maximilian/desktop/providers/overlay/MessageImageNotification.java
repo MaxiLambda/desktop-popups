@@ -1,6 +1,7 @@
 package org.lincks.maximilian.desktop.providers.overlay;
 
 import org.lincks.maximilian.desktop.core.notification.Notification;
+import org.lincks.maximilian.desktop.providers.CloseButtonSetupFunctionFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +35,9 @@ public class MessageImageNotification implements Notification {
 
     @Override
     public JPanel create() {
+        JPanel wrapperPanel = new JPanel();
+        wrapperPanel.setLayout(new BorderLayout(5,5));
+
         JPanel panel = new JPanel();
         OverlayLayout layout = new OverlayLayout(panel);
         panel.setLayout(layout);
@@ -50,11 +54,17 @@ public class MessageImageNotification implements Notification {
         panel.add(imageLabel);
 
         panel.setSize(image.getIconWidth(), image.getIconHeight());
-        return panel;
+        wrapperPanel.add(panel, BorderLayout.CENTER);
+        return wrapperPanel;
     }
 
     @Override
     public BiConsumer<JFrame, JPanel> setUp() {
-        return (frame, jPanel) -> frame.setSize(image.getIconWidth(), image.getIconHeight());
+        return (frame, panel) -> {
+            CloseButtonSetupFunctionFactory.getSetupFunction(closeBtn ->
+                            frame.setSize(image.getIconWidth(), image.getIconHeight() + 80))
+                    .accept(frame, panel);
+            frame.setSize(image.getIconWidth(), image.getIconHeight());
+        };
     }
 }

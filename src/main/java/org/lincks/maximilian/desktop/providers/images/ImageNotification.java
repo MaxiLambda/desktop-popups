@@ -1,6 +1,7 @@
 package org.lincks.maximilian.desktop.providers.images;
 
 import org.lincks.maximilian.desktop.core.notification.Notification;
+import org.lincks.maximilian.desktop.providers.CloseButtonSetupFunctionFactory;
 
 import javax.swing.*;
 import java.util.function.BiConsumer;
@@ -42,6 +43,11 @@ public class ImageNotification implements Notification {
 
     @Override
     public BiConsumer<JFrame, JPanel> setUp() {
-        return (frame, jPanel) -> frame.setSize(image.getIconWidth(), image.getIconHeight());
+        return (frame, panel) -> {
+            CloseButtonSetupFunctionFactory.getSetupFunction(closeBtn ->
+                            frame.setSize(image.getIconWidth(), image.getIconHeight() + 80))
+                    .accept(frame, panel);
+            frame.setSize(image.getIconWidth(), image.getIconHeight());
+        };
     }
 }
