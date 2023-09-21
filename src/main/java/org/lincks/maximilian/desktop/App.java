@@ -6,23 +6,24 @@ import org.lincks.maximilian.desktop.providers.images.ImagesProvider;
 import org.lincks.maximilian.desktop.providers.messages.MessageProvider;
 import org.lincks.maximilian.desktop.providers.overlay.OverlayProvider;
 
-import java.io.IOException;
 import java.util.List;
 
 public class App {
 
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void main(String[] args) throws InterruptedException {
         //setup
         System.out.println("Starting application...");
         FlatDarculaLaf.setup();
 
+        String resourcesDir = System.getenv("RES_DIR");
+
         //create providers
-        ImagesProvider imagesProvider = new ImagesProvider("src/main/resources/images");
+        ImagesProvider imagesProvider = new ImagesProvider(resourcesDir + "images");
         MessageProvider messageProvider = new MessageProvider(List.of(
-                "src/main/resources/messages/messages.txt",
-                "src/main/resources/messages/text-only-messages.txt"));
+                resourcesDir + "messages/messages.txt",
+                resourcesDir + "messages/text-only-messages.txt"));
         MessageProvider overlayMessageProvider = new MessageProvider(List.of(
-                "src/main/resources/messages/text-only-messages.txt"));
+                resourcesDir + "messages/text-only-messages.txt"));
 
         //run app with selected providers
         new NotificationManager(List.of(
