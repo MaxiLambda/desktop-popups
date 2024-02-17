@@ -40,4 +40,5 @@ build/
 
 src/main/resources/messages/
 src/main/resources/images/
+src/main/resources/config.txt
 .idea

@@ -10,9 +10,11 @@ import java.util.function.BiConsumer;
 public class MessageNotification implements Notification {
 
     private final String message;
+    private final CloseButtonSetupFunctionFactory closeButtonSetupFunctionFactory;
 
-    public MessageNotification(String message) {
+    public MessageNotification(CloseButtonSetupFunctionFactory closeButtonSetupFunctionFactory,String message) {
         this.message = message;
+        this.closeButtonSetupFunctionFactory = closeButtonSetupFunctionFactory;
     }
 
     @Override
@@ -27,7 +29,7 @@ public class MessageNotification implements Notification {
     @Override
     public BiConsumer<JFrame, JPanel> setUp() {
         return (frame, panel) -> {
-            CloseButtonSetupFunctionFactory.getSetupFunction().accept(frame, panel);
+            closeButtonSetupFunctionFactory.getSetupFunction().accept(frame, panel);
             frame.setSize(250, 100);
         };
     }

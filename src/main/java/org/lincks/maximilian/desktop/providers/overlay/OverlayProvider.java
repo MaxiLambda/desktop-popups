@@ -2,28 +2,36 @@ package org.lincks.maximilian.desktop.providers.overlay;
 
 import org.lincks.maximilian.desktop.core.notification.Notification;
 import org.lincks.maximilian.desktop.core.notification.provider.NotificationProvider;
+import org.lincks.maximilian.desktop.providers.CloseButtonSetupFunctionFactory;
 import org.lincks.maximilian.desktop.providers.images.ImagesProvider;
 import org.lincks.maximilian.desktop.providers.messages.MessageProvider;
 
 public class OverlayProvider implements NotificationProvider {
 
-    private final MessageProvider messageProvider;
-    private final ImagesProvider imagesProvider;
+  private final MessageProvider messageProvider;
+  private final ImagesProvider imagesProvider;
 
-    public OverlayProvider(MessageProvider messageProvider, ImagesProvider imagesProvider) {
-        this.messageProvider = messageProvider;
-        this.imagesProvider = imagesProvider;
-    }
+  private final CloseButtonSetupFunctionFactory closeButtonSetupFunctionFactory;
 
-    @Override
-    public Notification random() {
-        return new MessageImageNotification(
-                imagesProvider.randomImageUrl(),
-                messageProvider.randomMessageString());
-    }
+  public OverlayProvider(
+      MessageProvider messageProvider,
+      ImagesProvider imagesProvider,
+      CloseButtonSetupFunctionFactory closeButtonSetupFunctionFactory) {
+    this.messageProvider = messageProvider;
+    this.imagesProvider = imagesProvider;
+    this.closeButtonSetupFunctionFactory = closeButtonSetupFunctionFactory;
+  }
 
-    @Override
-    public int weight() {
-        return (messageProvider.weight() + imagesProvider.weight()) / 2;
-    }
+  @Override
+  public Notification random() {
+    return new MessageImageNotification(
+        closeButtonSetupFunctionFactory,
+        imagesProvider.randomImageUrl(),
+        messageProvider.randomMessageString());
+  }
+
+  @Override
+  public int weight() {
+    return (messageProvider.weight() + imagesProvider.weight()) / 2;
+  }
 }

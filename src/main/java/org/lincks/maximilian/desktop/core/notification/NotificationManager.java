@@ -1,5 +1,6 @@
 package org.lincks.maximilian.desktop.core.notification;
 
+import org.lincks.maximilian.desktop.App;
 import org.lincks.maximilian.desktop.ClosedWindowAdapter;
 import org.lincks.maximilian.desktop.core.notification.provider.NotificationProvider;
 import org.lincks.maximilian.desktop.core.notification.provider.ProviderManager;
@@ -14,8 +15,10 @@ public class NotificationManager {
     private final JPanel panel = new JPanel();
     private final ProviderManager providerManager;
 
-    private final Duration minDuration = Duration.ofMinutes(0);
-    private final Duration maxDuration = Duration.ofSeconds(1);
+  private final Duration minDuration = Duration.ofMinutes(App.minDuration);
+    private final Duration maxDuration = Duration.ofMinutes(App.maxDuration);
+
+    private final Duration initialDelay = Duration.ofMinutes(App.delay);
 
     public NotificationManager(List<NotificationProvider> providers) throws InterruptedException {
         providerManager = new ProviderManager(providers);
@@ -25,7 +28,7 @@ public class NotificationManager {
         frame.add(panel);
 
         System.out.println("Starting loop...");
-        Thread.sleep(Duration.ofMinutes(0).toMillis());
+        Thread.sleep(initialDelay.toMillis());
 
         addRandomNotification();
     }

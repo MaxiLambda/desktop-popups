@@ -11,7 +11,10 @@ public class ImageNotification implements Notification {
     private final ImageIcon image;
     private static final int maxSize = 500;
 
-    public ImageNotification(String imageUrl) {
+    private final CloseButtonSetupFunctionFactory closeButtonSetupFunctionFactory;
+
+    public ImageNotification(CloseButtonSetupFunctionFactory closeButtonSetupFunctionFactory, String imageUrl) {
+        this.closeButtonSetupFunctionFactory = closeButtonSetupFunctionFactory;
         ImageIcon rawImage = new ImageIcon(imageUrl);
         //sets the maximum size of the image to 500px in each dimension
         //scales the picture if it is too big
@@ -44,7 +47,7 @@ public class ImageNotification implements Notification {
     @Override
     public BiConsumer<JFrame, JPanel> setUp() {
         return (frame, panel) -> {
-            CloseButtonSetupFunctionFactory.getSetupFunction(closeBtn ->
+            closeButtonSetupFunctionFactory.getSetupFunction(closeBtn ->
                             frame.setSize(image.getIconWidth(), image.getIconHeight() + 80))
                     .accept(frame, panel);
             frame.setSize(image.getIconWidth(), image.getIconHeight());
